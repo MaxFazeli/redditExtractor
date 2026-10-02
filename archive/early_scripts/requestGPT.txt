@@ -1,0 +1,135 @@
+Extract books, movies, games, music related content or TV shows from given real data in JSON and mapping them to their corresponding unique identifiers using a provided external database. 
+For movies and tv shows imdb, for games IgDB. If id or source is approximated or not found, write NULL instead, this is important to ensure quality standard.
+The domains are Books, Film, Games, Music and TV and found in field link_flair_text. 
+The fields that should be analyzed are the selftext, title and the comments.body for all comment objects. 
+If its part of a series. like games or books always take the first one, eg. GTA series, GTA.
+Below an example how the input looks like and how the output should look like:
+
+Example Input:
+{
+	"_id": {
+		"$oid": "66febc36c1a984235fcd6a65"
+	},
+    "title": "[IIL] The Lord of the Rings, Harry Potter, etc., [WEWIL]?",
+    "selftext": "I love epic fantasy movies. Any suggestions for similar titles?",
+	"score": 12
+	"link_flair_text": "Film",
+	"comments": [
+    {
+      "score": 8,
+	  "_id": {
+        "$oid": "66febce8c1a984235fd29cc5"
+      },
+      "body": "You might enjoy Star Wars, Pirates if the Caribbean or Avatar."
+    }
+  ]
+}
+Expected Output:
+{
+  "submission": "66febc36c1a984235fcd6a65",
+  "labels": [
+    {
+      "entity": "The Lord of the Rings",
+	  "source": "ImDB",
+      "id": "0120737"
+    },
+    {
+      "entity": "Harry Potter",
+	  "source": "ImDB",
+      "id": "0241527"
+    }
+  ],
+  "comments": [
+    {
+      "score": 8,
+	  "id": "66febct5u1a984444fd29ck7"
+      "labels": [
+        {
+          "entity": "Star Wars",
+		  "source": "ImDB",
+          "id": "0120915"
+        },
+        {
+          "entity": "Pirates if the Caribbean",
+		  "source": "ImDB",
+          "id": "0325980"
+        },
+        {
+          "entity": "Avatar",
+		  "source": "ImDB",
+          "id": "0499549"
+        }
+      ]
+    }
+  ]
+}
+
+Real Data:
+{
+  "_id": {
+    "$oid": "66febc36c1a984235fcd3c11"
+  },
+  "comments": [
+    {
+      "score": 5,
+      "_id": {
+        "$oid": "66febce8c1a984235fd29cc5"
+      },
+      "body": "Definitely watch Memories, another film by Katsuhiro Otomo. It's a collection of three short films (two of which written by Satoshi Kon) and it's absolutely brilliant."
+    },
+    {
+      "score": 3,
+      "_id": {
+        "$oid": "66febce8c1a984235fd29cd4"
+      },
+      "body": "* **Ghost in the shell**, even the 2nd one if you are not afraid of being completely clueless about what is going on, also Stand alone society episodes if you want more and even the great Stand Alone Complex serie\n\n* **Paprika** It's about dreams, a bit like inception\n\n* **Pat labor** (yes I love Mamoru Oshii's work) It's some kind of detective movie, where the detectives pilots giant mechs, I know it sounds weird, just don't watch it thinking it will be another Pacific Rim\n\n* **Cowboy bebop**\n"
+    },
+    {
+      "score": 2,
+      "_id": {
+        "$oid": "66febce8c1a984235fd29ce2"
+      },
+      "body": "These aren't really films, but I thought I'd share, since Akira is my favorite movie as well: Psycho-Pass and Neon Genesis Evangelion.\n\nPsycho-Pass is set in a very cyberpunk version of Tokyo, where police can arrest or kill people based on their calculated likelihood of them commiting a crime. Very dark, really cyberpunk stuff.\n\nNeon Genesis Evangelion seems like just another mecha anime at first, but it becomes so much more than that and the characters feel so much more realistic than many stereotypical anime characters. The last few episodes and the movie, End of Evangelion, are also pretty abstract and confusing at first, much like the end of Akira. Possibly my favorite series ever.\n\nEDIT: Clarification"
+    },
+    {
+      "score": 4,
+      "_id": {
+        "$oid": "66febce8c1a984235fd29cea"
+      },
+      "body": "Princess Mononke. It's not techno futuristic like Akira, but it's serious, beautiful, and epic like Akira. It's one of the best Anime films ever made.. also like Akira. :)"
+    },
+    {
+      "score": 2,
+      "_id": {
+        "$oid": "66febce8c1a984235fd29d1e"
+      },
+      "body": "Not movies, but you should check out Cowboy Bebop and Fullmetal Alchemist: Brotherhood."
+    },
+    {
+      "score": 2,
+      "_id": {
+        "$oid": "66febce8c1a984235fd29d29"
+      },
+      "body": "Steamboy, another movie by the creator. Not sci-fi themed, but has great action-adventure sequences.\n\nWarriors, US movie from 1979. I think that movie had some impact when creating the manga and movie."
+    },
+    {
+      "score": 1,
+      "_id": {
+        "$oid": "66febce8c1a984235fd2a025"
+      },
+      "body": "[Aachi &amp; Ssipak](https://www.youtube.com/watch?v=4i7bAC2Y_XI)"
+    }
+  ],
+  "selftext": "Im into anime and mangas and films, watched akira recently, my favorite film so far. What other films (preferabbly anime type) with a similar type should i check out? Thanks.\n\nGreat suggestions, and i made a mistake and put \"films\" but im fine with watching anything really.",
+  "title": "[IIL] Akira (Film), [WEWIL?]",
+  "score": 14,
+  "link_flair_text": "Film"
+}
+
+
+Instructions:
+
+Extract named entities relevant to the domain (e.g., book titles, movie names, game titles, or artist names).
+Use an external database or API (like Google Books API, IMDb API, or IGDB for games) to retrieve unique identifiers for the entities.
+If no identifier is found for an entity, return null for id.
+Format the output cleanly, ensuring no duplicate entities.

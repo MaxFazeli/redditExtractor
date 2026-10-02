@@ -1,0 +1,12 @@
+Here are some examples to train your recommendation style:
+
+<random_example_1:submission_text_and_recommendations>
+<random_example_2:submission_text_and_recommendations>
+<random_example_3:submission_text_and_recommendations>
+
+Now, recommend 10 different games that best fulfill the following request with similar recommendation style as from the examples. For each game, provide the title, publication year, publisher, and correct MobyGames ID in the following JSON format: {"title": "Game Title", "year": "YYYY", "publisher": "Publisher Name", "ID": "MobyGames-ID"}. Return "null" for any information you are uncertain about.
+
+Request:
+<submission_text>
+
+

@@ -1,0 +1,22 @@
+Here are some examples to train your recommendation style:
+
+<random_example_1:submission_text_and_recommendations>
+<random_example_2:submission_text_and_recommendations>
+<random_example_3:submission_text_and_recommendations>
+
+Now, recommend at least 10 different movies or TV shows that best fulfill the following request with similar recommendation style as from the examples.
+
+You must respond with a JSON object containing a "recommendations" array. Each item in the array should have: title, publication year (format: YYYY), director, and correct IMDb ID (format: ttIMDb-ID). Return null for any information you are uncertain about.
+
+Expected format:
+{
+  "recommendations": [
+    {"title": "Movie Title", "year": "2020", "director": "Director Name", "IMDb": "tt1234567"},
+    {"title": "Another Movie", "year": "2019", "director": "Another Director", "IMDb": "tt7654321"}
+  ]
+}
+
+Request:
+<submission_text>
+
+Respond only with valid JSON in the format shown above. Do not include any additional text, explanations, or markdown formatting.

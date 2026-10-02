@@ -1,0 +1,17 @@
+[
+    {
+        "prompt": "Insert a subtle error into a given Python code snippet.\nThe error should not be a syntax error but could be a NameError, ValueError, UnboundLocalError, TypeError, ZeroDivisionError, IndexError, KeyError, or AttributeError.\nEnsure that only one error is included.\nThe user request is given in \"\"\" tags.\nThe response must include the entire modified code, including the inserted error, wrapped as a string within a valid JSON object with the following structure:\n'modified_code': A string type representing the complete modified Python code with the inserted error.\n",
+        "contains_role": false,
+        "contains_examples": false
+    },
+    {
+        "prompt": "Imagine you are an experienced Python developer.\nInsert a subtle error into a given Python code snippet.\nThe error should not be a syntax error but could be a NameError, ValueError, UnboundLocalError, TypeError, ZeroDivisionError, IndexError, KeyError, or AttributeError.\nEnsure that only one error is included.\nThe user request is given in \"\"\" tags.\nThe response must include the entire modified code, including the inserted error, wrapped as a string within a valid JSON object with the following structure:\n'modified_code': A string type representing the complete modified Python code with the inserted error.\n",
+        "contains_role": true,
+        "contains_examples": false
+    },
+    {
+        "prompt": "Insert a subtle error into a given Python code snippet.\nThe error should not be a syntax error but could be a NameError, ValueError, UnboundLocalError, TypeError, ZeroDivisionError, IndexError, KeyError, or AttributeError.\nEnsure that only one error is included.\nThe user request is given in \"\"\" tags.\nThe response must include the entire modified code, including the inserted error, wrapped as a string within a valid JSON object with the following structure:\n'modified_code': A string type representing the complete modified Python code with the inserted error.\nHere is an example:\n\"\"\"age = -1\nwhile age <= 0:\n  try:\n    age = int(input('Enter your age in years: '))\n    if age <= 0:\n      print('Your age must be positive')\n  except (ValueError, EOFError):\n    print('Invalid response')\"\"\"\n{\"modified_code\":\"age = -1\\nwhile age <= 0:\\n  try:\\n    age = int(input('Enter your age in years: '))\\n    if age < 0:\\n      print('Your age must be positive')\\n  except (ValueError, EOFError):\\n    print('Invalid response')\"}",
+        "contains_role": false,
+        "contains_examples": true
+    }
+]

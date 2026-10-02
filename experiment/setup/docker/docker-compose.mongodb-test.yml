@@ -1,0 +1,27 @@
+# Stand-alone MongoDB with the dataset on localhost:27017 - for local development / tests/dry_run_test.py.
+#
+#   DATASET_FILE=../../../data/backup_mongo_dump/reddit_data.dataset.json \
+#     docker compose -f docker-compose.mongodb-test.yml up -d
+
+
+services:
+  mongodb_devtest:
+    image: mongo:8.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - ${DATASET_FILE:-../../dataset/reddit_data.dataset.json}:/data/dataset.json:ro
+    command: >
+      bash -c "rm -f /tmp/import_done &&
+               mongod --fork --logpath /var/log/mongodb.log &&
+               mongoimport --db reddit_data --collection dataset --drop --file /data/dataset.json --jsonArray &&
+               echo 'Imported dataset into MongoDB' &&
+               mongosh reddit_data --quiet --eval 'print(\"Document count: \" + db.dataset.countDocuments())' &&
+               mongod --shutdown &&
+               touch /tmp/import_done &&
+               exec mongod --bind_ip_all"
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/import_done && mongosh --quiet --eval \"quit(db.getSiblingDB('reddit_data').dataset.countDocuments() > 0 ? 0 : 1)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 30

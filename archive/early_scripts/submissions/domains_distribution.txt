@@ -1,0 +1,15 @@
+Distribution of domains:
+Music: 6395
+Film: 991
+Books: 177
+TV: 803
+Games: 340
+Comics: 28
+Boys: 1
+Question: 1
+Image Collage: 121
+Misc.: 69
+YouTube/Streaming: 29
+Art: 12
+READ ME (please): 1
+Podcast: 2

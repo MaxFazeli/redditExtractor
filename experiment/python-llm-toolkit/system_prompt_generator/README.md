@@ -1,0 +1,67 @@
+# System Prompt Generator
+
+![Python 3.x](https://img.shields.io/badge/Python-3.x-blue.svg)
+
+`system_prompt_generator` is a command-line tool designed to process JSON configuration files containing system prompt information and generate a formatted string that encapsulates all the prompt details. This application is particularly useful for structuring data needed for system prompts from predefined input files.
+
+## Features
+
+- Load system prompt configurations from a JSON file.
+- Generate a consolidated string output based on roles, tasks, constraints, and optional examples.
+- Output the generated prompts to a specified JSON file or print them to standard output.
+
+## JSON Configuration Format
+
+The input JSON file should be a list of objects, each containing the following keys:
+
+- `role` (optional): A string describing the role.
+- `task`: A string describing the mandatory task.
+- `constraints`: A list of strings describing the mandatory constraints.
+- `examples` (optional): A list of string pairs (title, body) providing examples.
+
+### Example JSON
+
+```json
+[
+    {
+        "role": "You are a Debugging Expert: You specialize in diagnosing and fixing complex bugs in software applications, providing insights on code quality and stability to development teams.",
+        "task": "Insert a single logical or syntactical bug into the given Python code snippet, ensuring the rest of the code remains functional for debugging practice.",
+        "constraints": [
+            "Ensure the bug is subtle, such as off-by-one errors, logical flaws, or incorrect variable names.",
+            "Output must be a valid JSON having the following format: 'buggy_code': The modified Python code with an inserted bug. 'description_of_bug': A string explaining the nature of the bug and the modification made to the original code. 'differences': A list of objects showing differences for each changed line, containing the three properties: - 'line': The line number where the change occurred. - 'original': The original line of code. - 'buggy': The modified line with the inserted bug."
+        ]
+    },
+    {
+        "role": "You are a code reviewer tasked with inserting bugs.",
+        "task": "Insert a simple bug into each given Python code snippet.",
+        "constraints": [
+            "Ensure the bug is subtle, such as off-by-one errors, logical flaws, or incorrect variable names.",
+            "Your output must be in valid JSON. Do not output anything other than the JSON. Surround your JSON output with <result></result> tags."
+        ],
+        "examples": [
+            [
+                "Correct Snippet 1",
+                "def add(a, b):\n    return a + b"
+            ],
+            [
+                "Correct Snippet 2",
+                "def multiply(x, y):\n    result = 0\n    for _ in range(y):\n        result += x\n    return result"
+            ]
+        ]
+    }
+]
+```
+
+## Running the Application
+
+The application is run from the command line using Python. It requires specifying a configuration JSON file from which prompts are read and an optional output file.
+
+### Command
+
+```bash
+python3 system_prompt_generator.py --config_file system_prompt_configs.json --output_file generated_prompts.json
+```
+
+- `--config_file`: Path to the JSON configuration file containing system prompt information.
+- `--output_file`: Path to the JSON file where the generated prompts should be saved. (Optional)
+- `--print_to_stdout`: Flag to print generated prompts to the stdout. If an output file is not specified, this flag will print to the console instead.

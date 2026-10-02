@@ -1,0 +1,12 @@
+Here are some examples to train your recommendation style:
+
+<random_example_1:submission_text_and_recommendations>
+<random_example_2:submission_text_and_recommendations>
+<random_example_3:submission_text_and_recommendations>
+
+Now, recommend 10 different music entities (artists, songs, or albums) that best fulfill the following request with similar recommendation style as from the examples. For each entity, provide the entity name, type ("artist", "song", or "album"), publication year (use "-" for artists), and correct MusicBrainz ID in the following JSON format: {"entity": "Name", "type": "artist|song|album", "year": "YYYY|-", "ID": "MusicBrainz-UUID"}. Return "null" for any information you are uncertain about.
+
+Request:
+<submission_text>
+
+

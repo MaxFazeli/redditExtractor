@@ -1,0 +1,134 @@
+{
+  "submission": "66febc36c1a984235fcd3c11",
+  "labels": [
+    {
+      "entity": "Akira",
+      "source": "ImDB",
+      "id": "0094625"
+    }
+  ],
+  "comments": [
+    {
+      "score": 5,
+      "id": "66febce8c1a984235fd29cc5",
+      "labels": [
+        {
+          "entity": "Memories",
+          "source": "ImDB",
+          "id": "0113799"
+        },
+        {
+          "entity": "Katsuhiro Otomo",
+          "source": "ImDB",
+          "id": "nm0652663"
+        },
+        {
+          "entity": "Satoshi Kon",
+          "source": "ImDB",
+          "id": "nm0464804"
+        }
+      ]
+    },
+    {
+      "score": 3,
+      "id": "66febce8c1a984235fd29cd4",
+      "labels": [
+        {
+          "entity": "Ghost in the Shell",
+          "source": "ImDB",
+          "id": "0113568"
+        },
+        {
+          "entity": "Paprika",
+          "source": "ImDB",
+          "id": "0851578"
+        },
+        {
+          "entity": "Patlabor",
+          "source": "ImDB",
+          "id": "0094670"
+        },
+        {
+          "entity": "Cowboy Bebop",
+          "source": "ImDB",
+          "id": "0213338"
+        }
+      ]
+    },
+    {
+      "score": 2,
+      "id": "66febce8c1a984235fd29ce2",
+      "labels": [
+        {
+          "entity": "Psycho-Pass",
+          "source": "ImDB",
+          "id": "3010748"
+        },
+        {
+          "entity": "Neon Genesis Evangelion",
+          "source": "ImDB",
+          "id": "0112159"
+        },
+        {
+          "entity": "End of Evangelion",
+          "source": "ImDB",
+          "id": "0169858"
+        }
+      ]
+    },
+    {
+      "score": 4,
+      "id": "66febce8c1a984235fd29cea",
+      "labels": [
+        {
+          "entity": "Princess Mononoke",
+          "source": "ImDB",
+          "id": "0119698"
+        }
+      ]
+    },
+    {
+      "score": 2,
+      "id": "66febce8c1a984235fd29d1e",
+      "labels": [
+        {
+          "entity": "Cowboy Bebop",
+          "source": "ImDB",
+          "id": "0213338"
+        },
+        {
+          "entity": "Fullmetal Alchemist: Brotherhood",
+          "source": "ImDB",
+          "id": "1355642"
+        }
+      ]
+    },
+    {
+      "score": 2,
+      "id": "66febce8c1a984235fd29d29",
+      "labels": [
+        {
+          "entity": "Steamboy",
+          "source": "ImDB",
+          "id": "0348121"
+        },
+        {
+          "entity": "Warriors",
+          "source": "ImDB",
+          "id": "0080120"
+        }
+      ]
+    },
+    {
+      "score": 1,
+      "id": "66febce8c1a984235fd2a025",
+      "labels": [
+        {
+          "entity": "Aachi & Ssipak",
+          "source": "ImDB",
+          "id": "0850662"
+        }
+      ]
+    }
+  ]
+}

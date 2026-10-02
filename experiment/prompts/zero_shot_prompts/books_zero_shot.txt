@@ -1,0 +1,16 @@
+Recommend at least 10 different books that best fulfill the following request.
+
+You must respond with a JSON object containing a "recommendations" array. Each item in the array should have: title, publication year (format: YYYY), author, and correct ISBN. Return null for any information you are uncertain about.
+
+Expected format:
+{
+  "recommendations": [
+    {"title": "Book Title", "year": "2020", "author": "Author Name", "ISBN": "978-0000000000"},
+    {"title": "Another Book", "year": "2019", "author": "Another Author", "ISBN": "978-1111111111"}
+  ]
+}
+
+Request:
+<submission_text>
+
+Respond only with valid JSON in the format shown above. Do not include any additional text, explanations, or markdown formatting.

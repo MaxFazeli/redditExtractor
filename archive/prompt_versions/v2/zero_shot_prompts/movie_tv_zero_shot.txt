@@ -1,0 +1,7 @@
+Recommend at least 10 different movies or TV shows that best fulfill the following request. For each title, provide the title, publication year, director, and correct IMDb ID in the following JSON format: {"title": "<movie/show title>", "year": "<YYYY>", "director": "<director name>", "IMDb": "<ttIMDb-ID>"}. Return null for any information you are uncertain about.
+
+Request:
+<submission_text>
+
+Omit any additional text or output.
+

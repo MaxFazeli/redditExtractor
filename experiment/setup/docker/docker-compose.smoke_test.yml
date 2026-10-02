@@ -1,0 +1,68 @@
+# Smoke test: 2 models (one small, one gpt-oss to check the Ollama update), first 3 submissions,
+# zero-shot + few-shot, 1 GPU. Checks that the whole pipeline works before the larger runs.
+# Results land in setup/results/smoke_test/
+#
+# Usage (on funkenzutzler, in setup/docker/):
+#   docker compose -f docker-compose.smoke_test.yml up -d --build
+#   docker compose -f docker-compose.smoke_test.yml logs -f recommendation_smoke
+#   docker compose -f docker-compose.smoke_test.yml down
+#
+# Monitor progress:
+#   tail -f ../results/smoke_test/run.log
+
+
+services:
+  mongodb_smoke:
+    image: mongo:8.0
+    volumes:
+      - ${DATASET_FILE:-../../dataset/reddit_data.dataset.json}:/data/dataset.json:ro
+    # --drop: re-import from scratch on every start, so a restarted container never holds stale or duplicated data.
+    # /tmp/import_done marks that the import finished and the final mongod is starting (used by the healthcheck).
+    command: >
+      bash -c "rm -f /tmp/import_done &&
+               mongod --fork --logpath /var/log/mongodb.log &&
+               mongoimport --db reddit_data --collection dataset --drop --file /data/dataset.json --jsonArray &&
+               echo 'Imported dataset into MongoDB' &&
+               mongod --shutdown &&
+               touch /tmp/import_done &&
+               exec mongod --bind_ip_all"
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/import_done && mongosh --quiet --eval \"quit(db.getSiblingDB('reddit_data').dataset.countDocuments() > 0 ? 0 : 1)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  recommendation_smoke:
+    build:
+      context: ../..
+      dockerfile: setup/docker/Dockerfile
+    depends_on:
+      mongodb_smoke:
+        condition: service_healthy
+    environment:
+      - MONGODB_HOST=mongodb_smoke
+      - MONGODB_PORT=27017
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - NVCLUSTER_USER=${NVCLUSTER_USER:-hungryapeman}
+      # run configuration (see setup/scripts/run_models.py)
+      - RUN_NAME=smoke_test
+      - MODELS=llama3.2:3b-instruct-q4_K_M gpt-oss:20b
+      - PROMPT_TYPES=zero_shot few_shot
+      - LIMIT=3
+      - INPUT_MODE=title_selftext
+      - RESULTS_DIR=/app/results
+    volumes:
+      - ../..:/app/experiment
+      - ../results:/app/results
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app/experiment
+    # time for the scheduler to cancel the SLURM job on `docker compose down`
+    stop_grace_period: 2m
+    # Args: <ollama-port> <script-to-run> <gpus-per-node>
+    # The port must differ from every other instance that is running at the same time.
+    # 1 GPU (48 GB) is enough for both models.
+    command: >
+      /bin/bash /app/experiment/setup/scripts/ollama.sh
+      28023
+      /app/experiment/setup/scripts/run_models.py
+      1

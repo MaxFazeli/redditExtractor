@@ -1,5 +1,28 @@
+# Raw Reddit data, MongoDB dumps, dataset exports (several GB) - kept locally / on the server, not in git
+/data/
 /backup_mongo_dump
 /comments
 /submissions
+/dataset_creation/gpt_tagger
+
+# Experiment output and logs
+/experiment/setup/results/
+/experiment/log/
+/experiment/test_results/
+/experiment/recommendation_results/
+/experiment/dataset/
+
+# Secrets
+.env
+*.env
+
+# Python / IDE / editor settings
+__pycache__/
+*.pyc
+.venv/
+venv/
 .idea
-/gpt_tagger
+.claude/
+
+# Stale / duplicated evaluation outputs (kept locally, see archive/README.md)
+/archive/results_stale/

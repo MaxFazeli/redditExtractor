@@ -1,0 +1,6 @@
+Recommend 10 different books that best fulfill the following request. For each book, provide the title, publication year, author, and correct ISBN in the following JSON format: {"title": "Book Title", "year": "YYYY", "author": "Author Name", "ISBN": "ISBN-number"}. Return "null" for any information you are uncertain about.
+
+Request:
+<submission_text>
+
+

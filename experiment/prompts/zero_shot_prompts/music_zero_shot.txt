@@ -1,0 +1,16 @@
+Recommend at least 10 different music entities (artists, songs, or albums) that best fulfill the following request.
+
+You must respond with a JSON object containing a "recommendations" array. Each item in the array should have: entity name, type ("artist", "song", or "album"), publication year (use "-" for artists), and correct MusicBrainz ID. Return null for any information you are uncertain about.
+
+Expected format:
+{
+  "recommendations": [
+    {"entity": "Artist Name", "type": "artist", "year": "-", "ID": "550e8400-e29b-41d4-a716-446655440000"},
+    {"entity": "Song Title", "type": "song", "year": "2019", "ID": "660e9500-f30c-52e5-b827-557766551111"}
+  ]
+}
+
+Request:
+<submission_text>
+
+Respond only with valid JSON in the format shown above. Do not include any additional text, explanations, or markdown formatting.

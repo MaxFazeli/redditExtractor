@@ -1,0 +1,70 @@
+# Full run: all Ollama models in framework/models.py, all 1,718 submissions, zero-shot + few-shot.
+# Uses 2 GPUs on nvcluster (models up to 123B at q4_K_M).
+# Results land in setup/results/full_run/
+#
+# Usage (on funkenzutzler, in setup/docker/):
+#   docker compose -f docker-compose.full_run.yml up -d --build
+#   docker compose -f docker-compose.full_run.yml logs -f recommendation_full
+#   docker compose -f docker-compose.full_run.yml down
+#
+# Monitor progress:
+#   tail -f ../results/full_run/run.log
+#
+# The run is resumable: if it stops (SLURM time limit, network, docker restart), just run
+# `up -d` again - finished models and already answered submissions are skipped.
+
+
+services:
+  mongodb_full:
+    image: mongo:8.0
+    volumes:
+      - ${DATASET_FILE:-../../dataset/reddit_data.dataset.json}:/data/dataset.json:ro
+    # --drop: re-import from scratch on every start, so a restarted container never holds stale or duplicated data.
+    # /tmp/import_done marks that the import finished and the final mongod is starting (used by the healthcheck).
+    command: >
+      bash -c "rm -f /tmp/import_done &&
+               mongod --fork --logpath /var/log/mongodb.log &&
+               mongoimport --db reddit_data --collection dataset --drop --file /data/dataset.json --jsonArray &&
+               echo 'Imported dataset into MongoDB' &&
+               mongod --shutdown &&
+               touch /tmp/import_done &&
+               exec mongod --bind_ip_all"
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/import_done && mongosh --quiet --eval \"quit(db.getSiblingDB('reddit_data').dataset.countDocuments() > 0 ? 0 : 1)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  recommendation_full:
+    build:
+      context: ../..
+      dockerfile: setup/docker/Dockerfile
+    depends_on:
+      mongodb_full:
+        condition: service_healthy
+    environment:
+      - MONGODB_HOST=mongodb_full
+      - MONGODB_PORT=27017
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - NVCLUSTER_USER=${NVCLUSTER_USER:-hungryapeman}
+      # run configuration (see setup/scripts/run_models.py)
+      - RUN_NAME=full_run
+      - MODEL_SETUP=ollama_models
+      - PROMPT_TYPES=zero_shot few_shot
+      - LIMIT=
+      - INPUT_MODE=title_selftext
+      - RESULTS_DIR=/app/results
+    volumes:
+      - ../..:/app/experiment
+      - ../results:/app/results
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app/experiment
+    # time for the scheduler to cancel the SLURM job on `docker compose down`
+    stop_grace_period: 2m
+    # Args: <ollama-port> <script-to-run> <gpus-per-node>
+    # The port must differ from every other instance that is running at the same time.
+    command: >
+      /bin/bash /app/experiment/setup/scripts/ollama.sh
+      28022
+      /app/experiment/setup/scripts/run_models.py
+      2

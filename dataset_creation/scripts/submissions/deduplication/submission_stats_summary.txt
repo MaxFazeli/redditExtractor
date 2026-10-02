@@ -1,0 +1,37 @@
+=== Overall Stats ===
+Total entries: 1865
+Entries with ≥5 cleaned_recommendations: 1718
+Entries with ≥1 duplicates_removed: 562
+Average duplicates_removed size: 0.87
+
+=== Per Category Stats ===
+
+Category: Books
+  Total entries: 143
+  Entries with ≥5 cleaned_recommendations: 92
+  Entries with ≥1 duplicates_removed: 47
+  Average duplicates_removed size: 1.72
+
+Category: Film
+  Total entries: 468
+  Entries with ≥5 cleaned_recommendations: 450
+  Entries with ≥1 duplicates_removed: 125
+  Average duplicates_removed size: 0.84
+
+Category: TV
+  Total entries: 489
+  Entries with ≥5 cleaned_recommendations: 470
+  Entries with ≥1 duplicates_removed: 146
+  Average duplicates_removed size: 0.56
+
+Category: Music
+  Total entries: 475
+  Entries with ≥5 cleaned_recommendations: 437
+  Entries with ≥1 duplicates_removed: 170
+  Average duplicates_removed size: 1.10
+
+Category: Games
+  Total entries: 290
+  Entries with ≥5 cleaned_recommendations: 269
+  Entries with ≥1 duplicates_removed: 74
+  Average duplicates_removed size: 0.64

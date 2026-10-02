@@ -1,0 +1,12 @@
+Here are some examples to train your recommendation style:
+
+<random_example_1:submission_text_and_recommendations>
+<random_example_2:submission_text_and_recommendations>
+<random_example_3:submission_text_and_recommendations>
+
+Now, recommend 10 different movies or TV shows that best fulfill the following request with similar recommendation style as from the examples. For each title, provide the title, publication year, director, and correct IMDb ID in the following JSON format: {"title": "Movie/Show Title", "year": "YYYY", "director": "Director Name", "IMDb": "ttIMDb-ID"}. Return "null" for any information you are uncertain about.
+
+Request:
+<submission_text>
+
+

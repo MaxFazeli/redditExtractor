@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    networks:
+      - experiment_network
+    volumes:
+      - ../../dataset/reddit_data.dataset.json:/data/dataset.json:ro
+    command: >
+      bash -c "mongod --fork --logpath /var/log/mongodb.log &&
+               sleep 3 &&
+               mongoimport --db reddit_data --collection dataset --file /data/dataset.json --jsonArray &&
+               echo 'Imported dataset into MongoDB' &&
+               mongod --shutdown &&
+               exec mongod --bind_ip_all"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  recommendation:
+    build:
+      context: ../..
+      dockerfile: setup/docker/Dockerfile
+    container_name: recommendation_1
+    networks:
+      - experiment_network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ../..:/app/experiment
+      - ../results:/app/results
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app/experiment
+    # Automatically sets up SSH tunnel, starts Ollama on nvcluster, and runs lite test
+    command: ["/bin/bash", "/app/experiment/setup/scripts/ollama.sh", "71195", "/app/experiment/recommendation_experiment_lite.py", "1"]
+
+networks:
+  experiment_network:
+    driver: bridge

@@ -1,0 +1,22 @@
+Here are some examples to train your recommendation style:
+
+<random_example_1:submission_text_and_recommendations>
+<random_example_2:submission_text_and_recommendations>
+<random_example_3:submission_text_and_recommendations>
+
+Now, recommend at least 10 different books that best fulfill the following request with similar recommendation style as from the examples.
+
+You must respond with a JSON object containing a "recommendations" array. Each item in the array should have: title, publication year (format: YYYY), author, and correct ISBN. Return null for any information you are uncertain about.
+
+Expected format:
+{
+  "recommendations": [
+    {"title": "Book Title", "year": "2020", "author": "Author Name", "ISBN": "978-0000000000"},
+    {"title": "Another Book", "year": "2019", "author": "Another Author", "ISBN": "978-1111111111"}
+  ]
+}
+
+Request:
+<submission_text>
+
+Respond only with valid JSON in the format shown above. Do not include any additional text, explanations, or markdown formatting.

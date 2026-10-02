@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  app_instance_1:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_1
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28010 /app/scripts/tiny_models.sh 1"]
+
+  app_instance_2:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_2
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28011 /app/scripts/small_models.sh 1"]
+
+  app_instance_3:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_3
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28012 /app/scripts/medium_models.sh 1"]
+
+  app_instance_4:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_4
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28013 /app/scripts/large_models.sh 2"]

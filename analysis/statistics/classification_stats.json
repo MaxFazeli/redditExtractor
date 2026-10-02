@@ -1,0 +1,52 @@
+{
+  "Books": {
+    "total_submissions": 143,
+    "classified_submissions": 137,
+    "missing_submissions": 6,
+    "total_comments": 1705,
+    "comments_with_recommendations": 1040,
+    "comments_no_field": 498,
+    "comments_empty_field": 167,
+    "comments_skipped": 0
+  },
+  "Film": {
+    "total_submissions": 468,
+    "classified_submissions": 447,
+    "missing_submissions": 21,
+    "total_comments": 8770,
+    "comments_with_recommendations": 7451,
+    "comments_no_field": 1230,
+    "comments_empty_field": 89,
+    "comments_skipped": 0
+  },
+  "Games": {
+    "total_submissions": 290,
+    "classified_submissions": 268,
+    "missing_submissions": 22,
+    "total_comments": 3737,
+    "comments_with_recommendations": 3259,
+    "comments_no_field": 323,
+    "comments_empty_field": 155,
+    "comments_skipped": 0
+  },
+  "Music": {
+    "total_submissions": 475,
+    "classified_submissions": 449,
+    "missing_submissions": 26,
+    "total_comments": 7128,
+    "comments_with_recommendations": 5070,
+    "comments_no_field": 689,
+    "comments_empty_field": 1369,
+    "comments_skipped": 0
+  },
+  "TV": {
+    "total_submissions": 489,
+    "classified_submissions": 464,
+    "missing_submissions": 25,
+    "total_comments": 9455,
+    "comments_with_recommendations": 8311,
+    "comments_no_field": 912,
+    "comments_empty_field": 232,
+    "comments_skipped": 0
+  }
+}

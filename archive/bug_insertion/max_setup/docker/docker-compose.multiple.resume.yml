@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app_instance_resume_1:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_resume_1
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28020 /app/scripts/tiny_models.resume.sh 1"]
+
+  app_instance_resume_2:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_resume_2
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28021 /app/scripts/small_models.resume.sh 1"]
+
+  app_instance_resume_3:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_resume_3
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28022 /app/scripts/medium_models.resume.sh 1"]
+
+  app_instance_resume_4:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ollama_instance_resume_4
+    volumes:
+      - ./cs-master/01_data_structures_and_algorithms_in_python:/app/src
+      - ./python-llm-toolkit/sbatch_scheduler:/app/sbatch_scheduler
+      - ./scripts:/app/scripts
+      - ./prompts:/app/prompts
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    command: ["/bin/sh", "-c", "/app/scripts/ollama.sh 28023 /app/scripts/large_models.resume.sh 2"]
+    #command: ["tail", "-f", "/dev/null"]

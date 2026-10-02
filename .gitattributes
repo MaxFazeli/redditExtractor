@@ -1,0 +1,5 @@
+# Scripts run on Linux (funkenzutzler, nvcluster, containers): always LF, also on Windows checkouts
+*.sh   text eol=lf
+*.py   text eol=lf
+*.yml  text eol=lf
+Dockerfile text eol=lf
